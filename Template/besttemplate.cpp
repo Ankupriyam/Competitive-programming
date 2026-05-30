@@ -1,8 +1,9 @@
 /*
-   Author: Anku 
-    created: 20:08:27 02-05-2026
+   Author: Anku
+    created: 20:08:15 23-05-2026
 */
-
+ 
+ 
 #include<bits/stdc++.h>
 #include<ext/pb_ds/assoc_container.hpp>
 #include<ext/pb_ds/tree_policy.hpp>
@@ -224,7 +225,6 @@ struct DSU {
         if (sz[a] < sz[b]) swap(a, b);
         parent[b] = a;
         sz[a] += sz[b];
-        sz[b] = sz[a];
         return true;
     }
 };
@@ -242,12 +242,9 @@ struct DSU {
 // ╰──────────────────────────────╯
 void solve(){
  
-    ll n;
+    int n;
     cin>>n;
     
-    
- 
- 
  
  
 }
