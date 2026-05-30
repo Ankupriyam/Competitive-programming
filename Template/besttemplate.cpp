@@ -13,8 +13,8 @@ using namespace __gnu_pbds;
  
 // #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
 #pragma GCC optimize("Ofast,unroll-loops,O3,no-stack-protector,fast-math")
-#pragma GCC target("avx,avx2,fma,sse4")
- 
+#pragma GCC optimize("O3,unroll-loops")
+
 // ╭──────────────────────────────╮
 // │         ALIASES ZONE         │
 // ╰──────────────────────────────╯
@@ -30,7 +30,7 @@ typedef long double lld;
 // ╭──────────────────────────────╮
 // │         MACROS ZONE          │
 // ╰──────────────────────────────╯
-#define ll                long long
+// #define ll                long long
 #define int               long long
 #define eb                emplace_back
 #define mp                make_pair
@@ -194,7 +194,7 @@ ll getRandomNumber(ll l, ll r) {return uniform_int_distribution<ll>(l, r)(rng);}
 // ╭──────────────────────────────╮
 // │        FACTORIAL ZONE        │
 // ╰──────────────────────────────╯
-int fact[MAXN+1], invFact[MAXN+1];
+ll fact[MAXN+1], invFact[MAXN+1];
 void precomp_fact() {
     fact[0] = invFact[0] = 1;
     for(int i = 1; i <= MAXN; i++){
