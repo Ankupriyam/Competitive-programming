@@ -1,2 +1,18 @@
-# Competitive-programming
-Competitive Programming solutions, contest submissions, and DSA templates from Codeforces, CodeChef, AtCoder, CSES, and other platforms in C++.
+# Competitive Programming
+
+This repository contains my solutions to problems from:
+
+- Codeforces
+- CodeChef
+- AtCoder
+- CSES
+
+## Languages
+- C++
+
+## Topics Covered
+- Graphs
+- Dynamic Programming
+- Binary Search
+- Number Theory
+- Data Structures
