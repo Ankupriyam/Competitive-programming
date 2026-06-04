@@ -29,7 +29,39 @@ long long nCr(ll n, ll r)
     }
     return res;
 }
-/*ncrmod*/const int MAXN = 1e6 + 5;ll fact[MAXN], invFact[MAXN];ll power(ll a, ll b) {ll res = 1;while (b) {if (b & 1) res = (res * a) % MOD;a = (a * a) % MOD;b >>= 1;}return res;}void precompute() {fact[0] = 1;for (int i = 1; i < MAXN; i++) {fact[i] = (fact[i - 1] * i) % MOD;}invFact[MAXN - 1] = power(fact[MAXN - 1], MOD - 2); for (int i = MAXN - 2; i >= 0; i--) {invFact[i] = (invFact[i + 1] * (i + 1)) % MOD;}}ll ncrmod(ll n, ll r) {if (r < 0 || r > n) return 0;return (fact[n] * invFact[r] % MOD * invFact[n - r] % MOD) % MOD;}
+/*ncrmod*/ const int MAXN = 1e6 + 5;
+ll fact[MAXN], invFact[MAXN];
+ll power(ll a, ll b)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            res = (res * a) % MOD;
+        a = (a * a) % MOD;
+        b >>= 1;
+    }
+    return res;
+}
+void precompute()
+{
+    fact[0] = 1;
+    for (int i = 1; i < MAXN; i++)
+    {
+        fact[i] = (fact[i - 1] * i) % MOD;
+    }
+    invFact[MAXN - 1] = power(fact[MAXN - 1], MOD - 2);
+    for (int i = MAXN - 2; i >= 0; i--)
+    {
+        invFact[i] = (invFact[i + 1] * (i + 1)) % MOD;
+    }
+}
+ll ncrmod(ll n, ll r)
+{
+    if (r < 0 || r > n)
+        return 0;
+    return (fact[n] * invFact[r] % MOD * invFact[n - r] % MOD) % MOD;
+}
 vector<bool> sieve(int n)
 {
     vector<bool> isPrime(n + 1, true);
@@ -201,32 +233,28 @@ int findMEX(vector<ll> &a)
     }
     return mex;
 }
-ll power2(ll x, ll n) {
-    x %= MOD;
-    ll res = 1;
-    while (n > 0) {
-        if (n & 1)
-            res = (ll)((__int128)res * x % MOD);
-
-        x = (ll)((__int128)x * x % MOD);
-        n >>= 1;
-    }
-    return res;
-}
 
 void solve()
 {
     ll n, k;
     cin >> n >> k;
-    ll maxi=1,ans=0,prev=0;
-    for(;maxi<=n;maxi++){
-        ll curr=power2(maxi-1,k);
-        ll take=ncrmod(n-maxi,n-k-1);
-        // prev+=curr;
-        ans=(ans+(take*curr)%MOD)%MOD;
+    ll maxi = 1, ans = 0, prev = 0;
+    for (; maxi <= k; maxi++)
+    {
+        ll curr = (power(maxi, k) - power(maxi - 1, k));
+        while (curr < 0)
+        {
+            curr += MOD;
+        }
+        curr %= MOD;
+        ll take = 0;
+        if (n - maxi >= 0 && n - k >= 0 && (n - maxi) >= (n - k))
+        {
+            take = ncrmod(n - maxi, n - k);
+        }
+        ans = (ans + (take * curr) % MOD) % MOD;
     }
-    cout<<ans;
-    
+    cout << ans;
 }
 
 int main()

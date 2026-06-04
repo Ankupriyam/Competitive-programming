@@ -207,18 +207,24 @@ void solve()
     ll n;
     cin >> n;
     string s;
-    cin>>s;
-    ll ans=0;
-    for(int i=0;i<n;){
-        int j=i;
-        while(j<n&&s[i]==s[j])j++;
-        ans+=(j-i)/3;
-        i=j;
+    cin >> s;
+    ll ans = 0;
+    for (int i = 0; i < n;)
+    {
+        int j = i, count = 0;
+        while (j < n && s[i] == s[j])
+        {
+            j++;
+            count++;
+            if (count == 3)
+            {
+                ans++;
+                count = 0;
+            }
+        }
+        i = j;
     }
-    cout<<ans;
-    
-    
-    
+    cout << ans;
 }
 
 int main()
