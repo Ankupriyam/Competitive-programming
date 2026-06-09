@@ -1,8 +1,4 @@
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
-#define Oset tree<long long, null_type, less<long long>, rb_tree_tag, tree_order_statistics_node_update>
 using namespace std;
 #define pii pair<int, int>
 #define all(x) (x).begin(), (x).end()
@@ -194,9 +190,9 @@ bool isPalindrome(string s)
     return true;
 }
 
-int findMEX(vector<int> &a)
+int findMEX(vector<ll> &a)
 {
-    unordered_set<int> s(a.begin(), a.end());
+    unordered_set<ll> s(a.begin(), a.end());
 
     int mex = 0;
     while (s.count(mex))
@@ -205,20 +201,31 @@ int findMEX(vector<int> &a)
     }
     return mex;
 }
-
+// void f(int i,int j,vector<ll>&nums){
+//     if(j-i<=1)return;
+//     int idx=(i+j)/2;
+//     nums[idx]=nums[i]^nums[j];
+//     f(idx,j,nums);
+//     f(i,idx,nums);
+// }
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> nums(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> nums[i];
-    }
-    
-    
-    
-    
+    ll n, k;
+    cin >> n >> k;
+    string s, z;
+    cin >> s;
+    cin >> z;
+    ll onesA = 0;
+    ll onesB = 0;
+    for (char c : s)
+        onesA += (c == '1');
+    for (char c : z)
+        onesB += (c == '1');
+    ll fA = onesA * (n - onesA);
+    ll fB = onesB * (n - onesB);
+    ll cnt = 1LL << (k - 1);
+    ll ans = cnt * fA + (cnt + 1) * fB;
+    cout << ans;
 }
 
 int main()

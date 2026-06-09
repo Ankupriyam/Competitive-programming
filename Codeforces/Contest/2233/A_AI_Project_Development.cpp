@@ -2,7 +2,7 @@
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
-#define Oset tree<long long, null_type, less<long long>, rb_tree_tag, tree_order_statistics_node_update>
+#define Oset tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
 using namespace std;
 #define pii pair<int, int>
 #define all(x) (x).begin(), (x).end()
@@ -194,9 +194,9 @@ bool isPalindrome(string s)
     return true;
 }
 
-int findMEX(vector<int> &a)
+int findMEX(vector<ll> &a)
 {
-    unordered_set<int> s(a.begin(), a.end());
+    unordered_set<ll> s(a.begin(), a.end());
 
     int mex = 0;
     while (s.count(mex))
@@ -208,14 +208,18 @@ int findMEX(vector<int> &a)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> nums(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> nums[i];
+    ll n,x,y,z;
+    cin >> n>>x>>y>>z;
+    ll a1=(n+x+y-1)/(x+y);
+    ll a2=(n-z*x+x+10*y-1)/(x+10*y)+z;
+    if(n<=z){
+        cout<<a1;
+        return;
+    }else{
+        cout<<min(a1,a2);
     }
-    
+
+   
     
     
     
