@@ -190,9 +190,9 @@ bool isPalindrome(string s)
     return true;
 }
 
-int findMEX(vector<ll> &a)
+int findMEX(vector<int> &a)
 {
-    unordered_set<ll> s(a.begin(), a.end());
+    unordered_set<int> s(a.begin(), a.end());
 
     int mex = 0;
     while (s.count(mex))
@@ -201,31 +201,28 @@ int findMEX(vector<ll> &a)
     }
     return mex;
 }
-// void f(int i,int j,vector<ll>&nums){
-//     if(j-i<=1)return;
-//     int idx=(i+j)/2;
-//     nums[idx]=nums[i]^nums[j];
-//     f(idx,j,nums);
-//     f(i,idx,nums);
-// }
+
 void solve()
 {
-    ll n, k;
-    cin >> n >> k;
-    string s, z;
-    cin >> s;
-    cin >> z;
-    ll onesA = 0;
-    ll onesB = 0;
-    for (char c : s)
-        onesA += (c == '1');
-    for (char c : z)
-        onesB += (c == '1');
-    ll fA = onesA * (n - onesA);
-    ll fB = onesB * (n - onesB);
-    ll cnt = 1LL << (k - 1);
-    ll ans = cnt * fA + (cnt + 1) * fB;
-    cout << ans;
+    ll n;
+    cin >> n;
+    ll sum=0,ans=0;
+    unordered_map<int,int>mp;
+    mp[0]=1;
+    string s;
+    cin>>s;
+    for (int i=1;i<=n;i++)
+    {
+        ll x=s[i-1]-'0';
+        sum+=x;
+        ans+=mp[sum-i];
+        mp[sum-i]++;
+    }
+    cout<<ans;
+    
+    
+    
+    
 }
 
 int main()
