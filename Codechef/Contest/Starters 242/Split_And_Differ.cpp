@@ -227,23 +227,35 @@ void solve()
             cout << -1;
             return;
         }
-        if (nums[i] == 2 && nums[i + 1] == 2)
-        {
-            cout << -1;
-            return;
-        }
+        // if (nums[i] == 2 && nums[i + 1] == 2)
+        // {
+        //     cout << -1;
+        //     return;
+        // }
     }
     vector<ll> arr;
     arr.pb(nums[0]);
-    for(int i=1;i<n;i++){
-        if(arr.back()==nums[i]){
-            arr.pb(1);
-            arr.pb(nums[i]-1);
-        }else{
+    for (int i = 1; i < n; i++)
+    {
+        if (arr.back() == nums[i])
+        {
+            if (i + 1 < n && (nums[i] - 1) == nums[i + 1])
+            {
+                arr.pb(nums[i] - 1);
+                arr.pb(1);
+            }
+            else
+            {
+                arr.pb(1);
+                arr.pb(nums[i] - 1);
+            }
+        }
+        else
+        {
             arr.pb(nums[i]);
         }
     }
-    for (int i = 0; i <arr.size()-1; i++)
+    for (int i = 0; i < arr.size() - 1; i++)
     {
         if (arr[i] == arr[i + 1])
         {
