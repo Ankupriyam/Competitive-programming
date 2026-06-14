@@ -11,8 +11,22 @@ This repository contains my solutions to problems from:
 - C++
 
 ## Topics Covered
-- Graphs
-- Dynamic Programming
+- Arrays & Strings
+- Sorting & Searching
+- Recursion & Backtracking
+- Linked List, Stack, Queue
+- Hashing
+- Trees
+- Heap
+- Greedy
 - Binary Search
-- Number Theory
-- Data Structures
+- Dynamic Programming
+- Graphs
+- DSU
+- Segment Tree & BIT
+- String Algorithms
+- Advanced Graphs
+- Advanced DP
+- Geometry
+- Game Theory
+ 
