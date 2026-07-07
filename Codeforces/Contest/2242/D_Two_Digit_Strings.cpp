@@ -217,25 +217,6 @@ bool isPalindrome(string s)
     return true;
 }
 
-int dp[5004][5004];
-ll f(int i, int j, vector<ll> &a, vector<ll> &b)
-{
-    ll n = a.size(), m = b.size();
-    if (i < 0 || j < 0)
-    {
-        return 0;
-    }
-    int ans = 0;
-    if (dp[i][j] != -1)
-        return dp[i][j];
-    if (a[i] == b[j])
-    {
-        ans = max(ans, 1 + f(i - 1, j - 1, a, b));
-    }
-    ans = max(ans, f(i, j - 1, a, b));
-    ans = max(ans, f(i - 1, j, a, b));
-    return dp[i][j] = ans;
-}
 
 void solve()
 {
@@ -251,21 +232,34 @@ void solve()
     {
         sum1 += a[i] - '0';
         x.pb(a[i] - '0');
-        if (i) x[i] = (x[i] + x[i - 1]) % 10;
+        if (i)
+            x[i] = (x[i] + x[i - 1]) % 10;
     }
     for (int i = 0; i < m; i++)
     {
         sum2 += b[i] - '0';
         y.pb(b[i] - '0');
-        if (i) y[i] = (y[i] + y[i - 1]) % 10;
+        if (i)
+            y[i] = (y[i] + y[i - 1]) % 10;
     }
     if ((sum1 % 10) != (sum2 % 10))
     {
         cout << -1;
         return;
     }
-    memset(dp, -1, sizeof(dp));
-    cout<<f(x.size()-1,y.size()-1,x,y);
+    vector<int> prev(m + 1), cur(m + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 1; j <= m; j++)
+        {
+            if (x[i - 1] == y[j - 1])
+                cur[j] = prev[j - 1] + 1;
+            else
+                cur[j] = max(prev[j], cur[j - 1]);
+        }
+        swap(prev, cur);
+    }
+    cout << prev[m];
 }
 
 signed main()
