@@ -2,12 +2,15 @@
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
-#define Oset tree<long long, null_type, less<long long>, rb_tree_tag, tree_order_statistics_node_update>
+#define Oset tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
 using namespace std;
 #define pii pair<int, int>
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define ll long long
+#define popcount(n) __builtin_popcountll(n)
+#define MSB(n) (63 - __builtin_clzll(n))
+#define LSB(n) __builtin_ctzll(n)
 #define pb push_back /*Display gcd ncr lcm sieve firstnprime isprime  */
 const ll MOD = 1000000007;
 long long gcd(long long a, long long b)
@@ -32,71 +35,6 @@ long long nCr(ll n, ll r)
         res = res * (n - i) / (i + 1);
     }
     return res;
-}
-// /*ncrmod*/const int MAXN = 1e6 + 5;ll fact[MAXN], invFact[MAXN];ll power(ll a, ll b) {ll res = 1;while (b) {if (b & 1) res = (res * a) % MOD;a = (a * a) % MOD;b >>= 1;}return res;}void precompute() {fact[0] = 1;for (int i = 1; i < MAXN; i++) {fact[i] = (fact[i - 1] * i) % MOD;}invFact[MAXN - 1] = power(fact[MAXN - 1], MOD - 2); for (int i = MAXN - 2; i >= 0; i--) {invFact[i] = (invFact[i + 1] * (i + 1)) % MOD;}}ll ncrmod(ll n, ll r) {if (r < 0 || r > n) return 0;return (fact[n] * invFact[r] % MOD * invFact[n - r] % MOD) % MOD;}
-vector<bool> sieve(int n)
-{
-    vector<bool> isPrime(n + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (long long i = 2; i * i <= n; i++)
-    {
-        if (isPrime[i])
-        {
-            for (long long j = i * i; j <= n; j += i)
-            {
-                isPrime[j] = false;
-            }
-        }
-    }
-    return isPrime;
-}
-vector<int> firstNPrimes(int n)
-{
-    if (n <= 0)
-        return {};
-    int limit;
-    if (n < 6)
-    {
-        limit = 15;
-    }
-    else
-    {
-        limit = n * (log(n) + log(log(n))) + 10;
-    }
-    vector<bool> isPrime(limit + 1, true);
-    isPrime[0] = isPrime[1] = false;
-    for (int i = 2; i * i <= limit; i++)
-    {
-        if (isPrime[i])
-        {
-            for (int j = i * i; j <= limit; j += i)
-                isPrime[j] = false;
-        }
-    }
-    vector<int> primes;
-    for (int i = 2; i <= limit && primes.size() < n; i++)
-    {
-        if (isPrime[i])
-        {
-            primes.push_back(i);
-        }
-    }
-    return primes;
-}
-bool isPrime(int n)
-{
-    if (n < 2)
-        return false;
-    if (n == 2)
-        return true;
-    if (n % 2 == 0)
-        return false;
-    for (int i = 3; i * i <= n; i += 2)
-    {
-        if (n % i == 0)
-            return false;
-    }
-    return true;
 }
 void display(vector<ll> &nums)
 {
@@ -181,6 +119,90 @@ void _print(map<T, V> v)
 }
 /* ========================================= */
 
+vector<bool> sieve(int n)
+{
+    vector<bool> isPrime(n + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    for (long long i = 2; i * i <= n; i++)
+    {
+        if (isPrime[i])
+        {
+            for (long long j = i * i; j <= n; j += i)
+            {
+                isPrime[j] = false;
+            }
+        }
+    }
+    return isPrime;
+}
+vector<int> firstNPrimes(int n)
+{
+    if (n <= 0)
+        return {};
+    int limit;
+    if (n < 6)
+    {
+        limit = 15;
+    }
+    else
+    {
+        limit = n * (log(n) + log(log(n))) + 10;
+    }
+    vector<bool> isPrime(limit + 1, true);
+    isPrime[0] = isPrime[1] = false;
+    for (int i = 2; i * i <= limit; i++)
+    {
+        if (isPrime[i])
+        {
+            for (int j = i * i; j <= limit; j += i)
+                isPrime[j] = false;
+        }
+    }
+    vector<int> primes;
+    for (int i = 2; i <= limit && primes.size() < n; i++)
+    {
+        if (isPrime[i])
+        {
+            primes.push_back(i);
+        }
+    }
+    return primes;
+}
+bool isPrime(int n)
+{
+    if (n < 2)
+        return false;
+    if (n == 2)
+        return true;
+    if (n % 2 == 0)
+        return false;
+    for (int i = 3; i * i <= n; i += 2)
+    {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
+int findMEX(vector<ll> &a)
+{
+    unordered_set<ll> s(a.begin(), a.end());
+
+    int mex = 0;
+    while (s.count(mex))
+    {
+        mex++;
+    }
+    return mex;
+}
+
+// /*ncrmod*/const int MAXN = 1e6 + 5;ll fact[MAXN], invFact[MAXN];ll power(ll a, ll b) {ll res = 1;while (b) {if (b & 1) res = (res * a) % MOD;a = (a * a) % MOD;b >>= 1;}return res;}void precompute() {fact[0] = 1;for (int i = 1; i < MAXN; i++) {fact[i] = (fact[i - 1] * i) % MOD;}invFact[MAXN - 1] = power(fact[MAXN - 1], MOD - 2); for (int i = MAXN - 2; i >= 0; i--) {invFact[i] = (invFact[i + 1] * (i + 1)) % MOD;}}ll ncrmod(ll n, ll r) {if (r < 0 || r > n) return 0;return (fact[n] * invFact[r] % MOD * invFact[n - r] % MOD) % MOD;}
+
+// ll modInverse(ll x)
+// {
+//     return power(x, MOD - 2);
+// }
+
 bool isPalindrome(string s)
 {
     int l = 0, r = s.size() - 1;
@@ -194,18 +216,6 @@ bool isPalindrome(string s)
     return true;
 }
 
-int findMEX(vector<int> &a)
-{
-    unordered_set<int> s(a.begin(), a.end());
-
-    int mex = 0;
-    while (s.count(mex))
-    {
-        mex++;
-    }
-    return mex;
-}
-
 void solve()
 {
     ll n;
@@ -215,9 +225,8 @@ void solve()
     {
         cin >> nums[i];
     }
-    
-    
-    
+
+
     
 }
 

@@ -8,6 +8,7 @@ using namespace std;
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
 #define ll long long
+#define int long long
 #define popcount(n) __builtin_popcountll(n)
 #define MSB(n) (63 - __builtin_clzll(n))
 #define LSB(n) __builtin_ctzll(n)
@@ -54,7 +55,7 @@ void display(vector<ll> &nums)
 #define debug(x)
 #endif
 
-void _print(int x) { cerr << x; }
+// void _print(int x) { cerr << x; }
 void _print(long long x) { cerr << x; }
 void _print(string x) { cerr << x; }
 void _print(char x) { cerr << x; }
@@ -252,7 +253,7 @@ void solve()
     cout << "YES";
 }
 
-int main()
+signed main()
 {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
