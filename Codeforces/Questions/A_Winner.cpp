@@ -221,23 +221,37 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<ll> nums(n);
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> nums[i];
-    }
-    vector<ll> cnt(100001, 0);
-    for (ll x : nums)
-        cnt[x]++;
-    vector<ll> dp(100001, 0);
-    dp[1] = cnt[1];
-    for (int i = 2; i <= 100000; i++)
-    {
-        dp[i] = max(dp[i - 1], dp[i - 2] + cnt[i] * i);
-    }
-    cout << dp[100000];
-}
 
+    vector<pair<string,ll>> nums;
+    map<string,ll> mp;
+
+    for(int i = 0; i < n; i++)
+    {
+        string s;
+        ll x;
+        cin >> s >> x;
+
+        nums.push_back({s,x});
+        mp[s] += x;
+    }
+
+    ll mx = 0;
+    for(auto it : mp)
+        mx = max(mx, it.second);
+
+    map<string,ll> curr;
+
+    for(auto [s,x] : nums)
+    {
+        curr[s] += x;
+
+        if(curr[s] >= mx && mp[s] == mx)
+        {
+            cout << s;
+            return;
+        }
+    }
+}
 signed main()
 {
     ios::sync_with_stdio(false);
