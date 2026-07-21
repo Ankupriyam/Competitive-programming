@@ -14,15 +14,6 @@ using namespace std;
 #define LSB(n) __builtin_ctzll(n)
 #define pb push_back /*Display gcd ncr lcm sieve firstnprime isprime  */
 const ll MOD = 1000000007;
-long long gcd(long long a, long long b)
-{
-    while (b)
-    {
-        a %= b;
-        swap(a, b);
-    }
-    return a;
-}
 long long lcm(long long a, long long b) { return (a / gcd(a, b)) * b; }
 long long nCr(ll n, ll r)
 {
