@@ -219,16 +219,45 @@ bool isPalindrome(string s)
 
 void solve()
 {
-    string s;
-    cin>>s;
-    int n=s.size();
-    for(int i=0;i<n;i++){
-        for(int )
+    ll n, q, miss = 0, maxi = 0;
+    cin >> n >> q;
+    vector<ll> nums(n);
+    vector<ll> gaps(n, 0);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> nums[i];
     }
-    
+    sort(all(nums));
+    ll sum = nums[0];
+    for (int i = 1; i < n; i++)
+    {
+        sum += (nums[i] - nums[i - 1] - 1);
+        gaps[i] = sum;
+    }
+    gaps[0] = nums[0];
+    while (q--)
+    {
+        ll k;
+        cin >> k;
+        auto it = lower_bound(gaps.begin(), gaps.end(), k) - gaps.begin();
 
-
-    
+        if (it == n)
+        {
+            cout << k + nums[n - 1] - gaps.back() << ' ';
+        }
+        else if (gaps[it] == k)
+        {
+            cout << nums[it] - 1 << ' ';
+        }
+        else if (it == 0)
+        {
+            cout << k - 1<<' ';
+        }
+        else
+        {
+            cout << nums[it - 1] + k - gaps[it - 1] << ' ';
+        }
+    }
 }
 
 signed main()
@@ -236,12 +265,12 @@ signed main()
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     // precompute(); /*when ncrmod*/
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        solve();
-        cout << '\n';
-    }
+    // int t;
+    // cin >> t;
+    // while (t--)
+    // {
+    solve();
+    //     cout << '\n';
+    // }
     return 0;
 }
