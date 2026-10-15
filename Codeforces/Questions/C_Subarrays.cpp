@@ -550,50 +550,29 @@ bool isPalindrome(string s)
 // const int max_n = 1e7 + 3;
 // int dp[max_n];
 
-ll f(ll n)
-{
-    ll curr = 1, i = 2;
-    while (i * i <= n)
-    {
-        ll cnt = 0;
-        while (n % i == 0)
-        {
-            n /= i;
-            cnt++;
-        }
-        if (cnt % 2)
-        {
-            curr *= i;
-        }
-        i++;
-    }
-    if (n > 1)
-    {
-        curr *= n;
-    }
-    return curr;
-}
-
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> nums(n);
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> nums(n), pref(n + 1, 0);
     for (int i = 0; i < n; i++)
     {
         cin >> nums[i];
     }
-    map<ll, ll> mp;
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        mp[f(nums[i])]++;
+        pref[i] += pref[i - 1] + nums[i - 1];
     }
-    ll curr = 1, ans = 0;
-    for (int i = 0; i < n; i++)
+    ll ans = 0;
+    map<ll, ll> mp;
+    for (int i = 1; i <= n; i++)
     {
-        curr = f(curr * nums[i]);
-        if (mp.find(curr) != mp.end())
-            ans += mp[curr];
+        ll curr = pref[i];
+        ans += mp[curr % k];
+        if (i >= k)
+        {
+            mp[pref[i - k] % k]++;
+        }
     }
     cout << ans;
 }
