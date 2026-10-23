@@ -207,26 +207,31 @@ bool isPalindrome(string s)
     }
     return true;
 }
-// n*5*2*n
-ll f(ll i,ll z,ll last, ll k){
-    
-}
-
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> nums(n);
+    ll n, k, z;
+    cin >> n >> k >> z;
+    vector<ll> nums(n), pref(n, 0);
     for (int i = 0; i < n; i++)
     {
         cin >> nums[i];
     }
-    
+    ll sum = 0,maxi = 0, ans = 0;
 
+    for (int i = 0; i <= k; i++)
+    {
+        sum += nums[i];
 
+        if (i < k)
+        {
+            maxi = max(maxi, nums[i] + nums[i + 1]);
+        }
 
-    
+        ll left = min(z, (k - i) / 2);
+        ans = max(ans, sum + maxi * left);
+    }
+    cout << ans;
 }
 
 int main()
