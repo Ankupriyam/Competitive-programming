@@ -216,53 +216,52 @@ bool isPalindrome(string s)
     }
     return true;
 }
+bool f(ll x, vector<ll> &vis, ll curr)
+{
+    if (x < 0 || x >= vis.size())
+        return false;
+
+    return vis[x] > curr;
+}
 
 void solve()
 {
     ll n, m;
     cin >> n >> m;
     // vector<ll> nums(n);
-    queue<int> q;
-    vector<int> vis(1e5, 0);
-    int ans = 0;
+    vector<ll> vis(1e6, 1e9);
+    vis[n] = 0;
+    queue<ll> q;
+    ll ans = 0;
     q.push(n);
-    vis[n]=1;
-    while (!q.empty())
+
+    while (q.size())
     {
-        int l = q.size();
-        while(l--)
+        int len = q.size();
+        while (len--)
         {
-            int curr = q.front();
+            auto it = q.front();
             q.pop();
-            if (m == curr)
+            if (it == m)
             {
-                cout << ans;
+                cout << vis[m];
                 return;
             }
-            else if (m > curr)
+            if (f(it * 2, vis, ans + 1))
             {
-                if (!vis[curr * 2])
-                {
-                    q.push(curr * 2);
-                    vis[curr * 2] = 1;
-                }
-                if (curr >= 2 && !vis[curr - 1])
-                {
-                    q.push(curr - 1);
-                    vis[curr - 1] = 1;
-                }
+                vis[it * 2] = ans + 1;
+                q.push(it * 2);
             }
-            else
+            if (f(it - 1, vis, ans + 1))
             {
-                if (curr >= 2 && !vis[curr - 1])
-                {
-                    q.push(curr - 1);
-                    vis[curr - 1] = 1;
-                }
+                vis[it - 1] = ans + 1;
+                q.push(it - 1);
             }
         }
+
         ans++;
     }
+
     cout << -1;
 }
 

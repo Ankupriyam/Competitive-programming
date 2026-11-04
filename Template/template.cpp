@@ -21,6 +21,8 @@ template<class T> using pqg = priority_queue<T, vector<T>, greater<T>>;
 #define popcount(n) __builtin_popcountll(n)
 #define MSB(n) (63 - __builtin_clzll(n))
 #define LSB(n) __builtin_ctzll(n)
+#define yes cout << "YES\n"
+#define no cout << "NO\n"
 #define pb push_back /*Display gcd ncr lcm sieve firstnprime isprime  */
 const ll MOD = 1000000007;
 const ll M=998244353;

@@ -208,16 +208,16 @@ void solve()
     cin >> n;
     string s;
     cin >> s;
-    ll ans = 0;
+    ll ans = 0,count=0;
     vector<int> vis(26, 0);
     for (char c : s)
     {
         if (!vis[c - 'a'])
         {
-            ans += n;
             vis[c - 'a'] = 1;
+            count++;
         }
-        n--;
+        ans+=count;
     }
     cout << ans;
 }
