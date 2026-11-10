@@ -206,7 +206,7 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<ll> a(n), b(n), ans(n + 2, 0), add(n + 2, 0), suff(n, 0);
+    vector<ll> a(n), b(n), full(n + 2, 0), add(n + 2, 0), pref(n, 0);
     for (int i = 0; i < n; i++)
     {
         cin >> a[i];
@@ -215,34 +215,39 @@ void solve()
     {
         cin >> b[i];
     }
-    suff[0] = b[0];
+    pref[0] = b[0];
     for (int i = 1; i < n; i++)
     {
-        suff[i] = suff[i - 1] + b[i];
+        pref[i] = pref[i - 1] + b[i];
     }
-
     for (int i = 0; i < n; i++)
     {
-        ll prev = (i == 0) ? 0 : suff[i - 1];
-        auto it = upper_bound(all(suff), prev + a[i]) - suff.begin();
+        ll prev = 0;
+        if (i > 0)
+            prev = pref[i - 1];
+        ll till = prev + a[i];
+        auto it = upper_bound(pref.begin(), pref.end(), till) - pref.begin();
         if (it > i)
         {
-            ans[i] += 1;
-            ans[it] -= 1;
+            full[it]--;
+            full[i]++;
         }
         if (it < n)
         {
-            ll x = (it == 0) ? 0 : suff[it - 1];
+            ll x=0;
+            if(it>0){
+                x=pref[it-1];
+            }
             add[it] += a[i] - (x - prev);
         }
     }
-    for (int i = 1; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        ans[i] += ans[i - 1];
+        full[i] += full[i - 1];
     }
     for (int i = 0; i < n; i++)
     {
-        cout << ans[i] * b[i] + add[i] << ' ';
+        cout << full[i] * b[i] + add[i] << ' ';
     }
 }
 
